@@ -43,10 +43,16 @@ internal final class APNSRequestFactory {
         if let collapseId = notification.options.collapseId {
             request.setValue("\(collapseId)", forHTTPHeaderField: "apns-collapse-id")
         }
-        guard let payload = try? Self.encoder.encode(notification.payload) else {
-            throw APNSProviderError.encodePayload
+        
+        if let rawPayload = notification.rawPayload {
+            request.httpBody = rawPayload.data(using: .utf8)
+        } else {
+            guard let payload = try? Self.encoder.encode(notification.payload) else {
+                throw APNSProviderError.encodePayload
+            }
+            request.httpBody = payload
         }
-        request.httpBody = payload
+        
         return request
     }
 }

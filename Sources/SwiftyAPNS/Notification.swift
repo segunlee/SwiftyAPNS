@@ -11,6 +11,9 @@ public typealias APNSDeviceToken = String
 public struct APNSNotification<Payload: Payloadable> {
     /// The Remote Notification Payload.
     public var payload: Payload
+
+    /// The Remote Notification Raw Payload.
+    public var rawPayload: String?
     
     /// Specify the hexadecimal string of the device token for the target device.
     public var token: APNSDeviceToken
