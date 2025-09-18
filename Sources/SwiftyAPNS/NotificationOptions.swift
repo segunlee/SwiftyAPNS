@@ -37,7 +37,7 @@ public struct APNSNotificationOptions {
         case .production:
             return "api.push.apple.com"
         case .sandbox:
-            return "api.development.push.apple.com"
+            return "api.sandbox.push.apple.com"
         }
     }
 }
