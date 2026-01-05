@@ -19,6 +19,16 @@ internal final class APNSKeyProvider: APNSSendMessageProtocol {
                 configuration: URLSessionConfiguration = URLSessionConfiguration.default)
     {
         self.token = APNSBearerToken(p8: p8, keyId: keyId, teamId: teamId)
+        // HTTP/2 사용 강제
+        configuration.protocolClasses = []  // 기본 프로토콜 클래스 제거
+        configuration.httpMaximumConnectionsPerHost = 1
+        configuration.timeoutIntervalForRequest = 30
+        configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+
+        // ALPN을 통해 HTTP/2 협상 활성화
+        if #available(macOS 10.13, *) {
+            configuration.tlsMinimumSupportedProtocolVersion = .TLSv12
+        }
         self.session = URLSession.init(configuration: configuration)
     }
     
