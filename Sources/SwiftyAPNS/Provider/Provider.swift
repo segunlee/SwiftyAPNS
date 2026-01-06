@@ -18,13 +18,13 @@ public struct APNSProvider {
 
 extension APNSProvider {
     public init(identity: SecIdentity, sandbox: Bool = true,
-                configuration: URLSessionConfiguration = URLSessionConfiguration.default)
+                configuration: URLSessionConfiguration = URLSessionConfiguration.ephemeral)
     {
         self.provider = APNSCertificateProvider(identity: identity, sandbox: sandbox, configuration: configuration)
     }
     
     public init(p8: P8, keyId: String, teamId: String, sandbox: Bool = true,
-                configuration: URLSessionConfiguration = URLSessionConfiguration.default)
+                configuration: URLSessionConfiguration = URLSessionConfiguration.ephemeral)
     {
         self.provider = APNSKeyProvider(p8: p8, keyId: keyId, teamId: teamId, sandbox: sandbox, configuration: configuration)
     }

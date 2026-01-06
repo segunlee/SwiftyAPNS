@@ -15,11 +15,10 @@ internal final class APNSCertificateProvider: NSObject, APNSSendMessageProtocol 
     
     private static let decoder = JSONDecoder()
     
-    public init(identity: SecIdentity, sandbox: Bool = true, configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
+    public init(identity: SecIdentity, sandbox: Bool = true, configuration: URLSessionConfiguration = URLSessionConfiguration.ephemeral) {
         self.identity = identity
         super.init()
         // HTTP/2 사용 강제
-        configuration.protocolClasses = []  // 기본 프로토콜 클래스 제거
         configuration.httpMaximumConnectionsPerHost = 1
         configuration.timeoutIntervalForRequest = 30
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData

@@ -16,11 +16,10 @@ internal final class APNSKeyProvider: APNSSendMessageProtocol {
     private static let decoder = JSONDecoder()
     
     public init(p8: P8, keyId: String, teamId: String, sandbox: Bool = true,
-                configuration: URLSessionConfiguration = URLSessionConfiguration.default)
+                configuration: URLSessionConfiguration = URLSessionConfiguration.ephemeral)
     {
         self.token = APNSBearerToken(p8: p8, keyId: keyId, teamId: teamId)
         // HTTP/2 사용 강제
-        configuration.protocolClasses = []  // 기본 프로토콜 클래스 제거
         configuration.httpMaximumConnectionsPerHost = 1
         configuration.timeoutIntervalForRequest = 30
         configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
